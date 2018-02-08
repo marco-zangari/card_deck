@@ -2,6 +2,7 @@
 
 import random
 
+
 class Card:
     """Represent a stand playing card.
 
@@ -47,7 +48,6 @@ class Deck:
             res.append(str(card))
         return '\n'.join(res)
 
-
     def pop_card(self):
         """Pop card from the bottom, i.e. the last card in list, deck."""
         return self.cards.pop()
@@ -64,6 +64,15 @@ class Deck:
         """Sort method for deck of cards."""
         self.sort(cards)
 
+    def deal_hands(self, num_hands=10, num_cards=5):
+        """Deal hands for a game of poker."""
+        hands = []
+        for i in range(num_hands):
+            hand = Hand()
+            self.move_cards(hand, num_cards)
+            hand.classify()
+            hand.append(hands)
+
 
 class Hand(Deck):
     """Represent hand of cards, within deck."""
@@ -72,5 +81,7 @@ class Hand(Deck):
         self.cards = []
         self.label = label
 
-
-
+    def move_cards(self, hand, num):
+        """Move the cards."""
+        for i in range(num):
+            hand.add_card(self.pop_card())
