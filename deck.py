@@ -65,3 +65,12 @@ class Deck:
         self.sort(cards)
 
 
+class Hand(Deck):
+    """Represent hand of cards, within deck."""
+
+    def __init__(self, label=''):
+        self.cards = []
+        self.label = label
+
+
+
