@@ -77,6 +77,9 @@ class Deck:
 class Hand(Deck):
     """Represent hand of cards, within deck."""
 
+    all_labels = ['straightflush', 'fourkind', 'fullhouse', 'flush',
+                  'straight', 'threekind', 'twopair', 'pair', 'highcard']
+
     def __init__(self, label=''):
         self.cards = []
         self.label = label
@@ -85,3 +88,12 @@ class Hand(Deck):
         """Move the cards."""
         for i in range(num):
             hand.add_card(self.pop_card())
+
+    def classify(self):
+        """Classify the hand; make attributes."""
+        self.histogram()
+        self.labels = []
+        for label in Hand.all_labels:
+            f = getattr(self, 'has_' + label)
+            if f():
+                self.labels.append(label)
