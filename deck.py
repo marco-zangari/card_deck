@@ -2,6 +2,18 @@
 
 import random
 
+class Hist(dict):
+    """Map from item to its frequency."""
+
+    def __init__(self, seq=[]):
+        for x in seq:
+            self.count(x)
+
+    def count(self, x, f=1):
+        self[x] = self.get(x, 0) + f
+        if self[x] == 0:
+            del self[x]
+
 
 class Card:
     """Represent a stand playing card.
@@ -84,6 +96,15 @@ class Hand(Deck):
         self.cards = []
         self.label = label
 
+    def histogram(self):
+        """Make histograms of suits and hands."""
+        self.suits = suits
+        self.ranks = ranks
+        for c in self.cards:
+            self.suits.count(c.suit)
+            self.ranks.count(c.rank)
+
+
     def move_cards(self, hand, num):
         """Move the cards."""
         for i in range(num):
@@ -97,3 +118,31 @@ class Hand(Deck):
             f = getattr(self, 'has_' + label)
             if f():
                 self.labels.append(label)
+
+
+def main():
+    """."""
+    lhist = Hist()
+    n = 10000
+    for i in range(n):
+        if i % 1000 == 0:
+            print(i)
+        deck = Deck()
+        deck.shuffle()
+        hands = deck.deal_hands(7, 7)
+        for hand in hands:
+            for label in hand.labels:
+                lhist.count(label)
+
+    total = 7.0 * n
+    print(total, 'hands dealt: ')
+
+    for label in Hand.all_labels:
+        freq = lhist.get(label, 0)
+        if freq == 0:
+            continue
+        p = total / freq
+        print('%s happens one time in %.2f' % (label, p))
+
+if __name__ == '__main__':
+    main()
