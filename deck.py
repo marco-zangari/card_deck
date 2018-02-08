@@ -1,5 +1,6 @@
 """Downey, Think Python, chapter 18, inheritance, exercises."""
 
+import random
 
 class Card:
     """Represent a stand playing card.
@@ -51,5 +52,16 @@ class Deck:
         """Pop card from the bottom, i.e. the last card in list, deck."""
         return self.cards.pop()
 
-    def add_card(self):
-        """."""
+    def add_card(self, card):
+        """Add card using append method."""
+        self.cards.append(card)
+
+    def shuffle(self):
+        """Shuffle method from the random module."""
+        random.shuffle(self.cards)
+
+    def sort(self):
+        """Sort method for deck of cards."""
+        self.sort(cards)
+
+
