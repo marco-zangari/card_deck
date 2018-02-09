@@ -1,5 +1,5 @@
 """Work with deck.py to produce hands for poker."""
 
 
-from deck.py import Hand, deck
+from deck.py import Hand, Deck
 
